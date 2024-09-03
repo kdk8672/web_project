@@ -6,6 +6,7 @@
 	<%
 		MemberVO member = (MemberVO) request.getAttribute("memberInfo");
 	%>
+	<input type="hidden" name="id" value=<%=member.getMemberId() %>>
 	<table class="table">
 		<tr>
 			<th>회원 아이디</th><td><%=member.getMemberId() %></td>
@@ -25,7 +26,7 @@
 		<tr align="center">
 			<td colspan="2" align="center">
 				<button class="btn btn-info" onclick="location.href='modifyForm.do?id=<%=member.getMemberId()%>'">수정</button>	
-				<button class="btn btn-danger">삭제</button>
+				<button class="btn btn-danger" onclick="location.href='removeMember.do?id=<%=member.getMemberId()%>'">삭제</button>
 			</td>
 		</tr>
 	</table>

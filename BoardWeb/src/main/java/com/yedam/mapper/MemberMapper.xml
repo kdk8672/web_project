@@ -24,7 +24,7 @@
 	
 	<!-- 주석: 회원삭제 -->
 	<delete id="deleteMember" parameterType="string">
-		delete from tbl_mbmer
+		delete from tbl_member
 		where member_id = #{memberId}
 	</delete>
 	

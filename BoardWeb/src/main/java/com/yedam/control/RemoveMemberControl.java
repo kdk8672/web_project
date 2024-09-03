@@ -1,7 +1,6 @@
 package com.yedam.control;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,17 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 import com.yedam.common.Control;
 import com.yedam.service.MemberService;
 import com.yedam.service.MemberServiceImpl;
-import com.yedam.vo.MemberVO;
 
-public class MemberListControl implements Control {
+public class RemoveMemberControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		MemberService svc = new MemberServiceImpl();
-		List<MemberVO> list = svc.getMembers();
+		// id 파라미터를 받아서 db 삭제처리, 목록이동
+		response.setContentType("text/html;charset=utf-8");
+
+		String id = request.getParameter("id");
 		
-		request.setAttribute("memberList", list);
-		request.getRequestDispatcher("WEB-INF/html/memberList.jsp").forward(request, response);
+		MemberService svc = new MemberServiceImpl();
+		
+		if(svc.removeMember(id)) {
+			response.sendRedirect("memberList.do");
+		} else {
+			request.setAttribute("message", "삭제중에 오류가 있습니다.");
+			request.getRequestDispatcher("WEB-INF/html/modifyForm.jsp").forward(request, response);
+		}
 
 	}
 
