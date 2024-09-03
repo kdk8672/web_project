@@ -20,6 +20,7 @@ import com.yedam.control.MainControl;
 import com.yedam.control.MemberListControl;
 import com.yedam.control.ModFormControl;
 import com.yedam.control.ModifyMemberControl;
+import com.yedam.control.RemoveMemberControl;
 import com.yedam.control.SubControl;
 
 @WebServlet("*.do")
@@ -40,14 +41,11 @@ public class FrontController extends HttpServlet {
 		map.put("/sub.do", new SubControl()); 
 		map.put("/intro.do", new IntroControl());
 		
-		// 기능등록
-		map.put("/addForm.do", new AddFormControl()); // 회원등록페이지
-		map.put("/addMember.do", new AddMemberControl()); // 회원등록처리
-		map.put("/memberList.do", new MemberListControl()); // 회원목록페이지
-		map.put("/getMember.do", new GetMemberControl()); // 회원아이디로 상세조회
-		map.put("/modifyForm.do", new ModFormControl()); // 수정화면 호출
-		map.put("/modifyMember.do", new ModifyMemberControl()); // 수정처리
+		Map<String, Control> memberMenu = MenuMember.getInstance().memuMap();
+		Map<String, Control> boardMenu = MenuBoard.getInstance().memuMap();
 		
+		map.putAll(memberMenu); // 멤버관련 메뉴추가
+		map.putAll(boardMenu); // 게시판관련 메뉴추가
 	}
 	
 	// HttpServletRequest
